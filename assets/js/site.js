@@ -82,7 +82,11 @@
     var pageField = form.querySelector('input[name="_page"]');
     if (pageField) pageField.value = window.location.href;
 
-    var status = form.querySelector('[data-form-status]');
+    /* the status element sits next to the form (inside .form-card), not inside it,
+       so fall back to the surrounding container before giving up */
+    var status = form.querySelector('[data-form-status]')
+      || (form.parentElement && form.parentElement.querySelector('[data-form-status]'))
+      || null;
     var button = form.querySelector('button[type="submit"]');
 
     if (submitted && status) {
